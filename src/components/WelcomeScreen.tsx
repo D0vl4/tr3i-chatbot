@@ -40,21 +40,22 @@ export default function WelcomeScreen({
             </button>
 
             {/* Title */}
-            <div className="flex-1 flex gap-2 items-center pl-1">
-              <h1 className="flex-1 font-medium leading-8 text-[#243143] text-2xl truncate">
-                AI Helper
-              </h1>
-            </div>
+            <h1 className="font-medium leading-8 text-[#243143] text-2xl truncate">
+              AI Helper
+            </h1>
 
             {/* New Chat Button */}
             <button 
               onClick={onNewChat}
               title="New Chat"
-              className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[#2668c5] hover:bg-[#1d5299] transition-colors text-white text-sm font-medium"
+              className="absolute left-[427px] flex items-center gap-2 px-3 py-2 rounded-lg bg-[#2668c5] hover:bg-[#1d5299] transition-colors text-white text-sm font-medium"
             >
               <Plus className="w-4 h-4" />
               New Chat
             </button>
+
+            {/* Empty space on the right */}
+            <div className="flex-1"></div>
           </div>
           {/* Divider */}
           <div className="bg-[rgba(38,104,197,0.1)] h-px w-full" />
@@ -114,7 +115,7 @@ export default function WelcomeScreen({
               <button
                 key={index}
                 onClick={() => onQuickQuestionClick(question)}
-                className="bg-[rgba(38,104,197,0.05)] border border-[rgba(38,104,197,0.1)] flex gap-2 h-[30px] items-center px-3 py-0 relative rounded-2xl hover:bg-[rgba(38,104,197,0.1)] transition-colors"
+                className="bg-[rgba(38,104,197,0.05)] border border-[rgba(38,104,197,0.1)] flex gap-2 h-[30px] items-center px-3 py-0 relative rounded-lg hover:bg-[rgba(38,104,197,0.1)] transition-colors"
               >
                 <p
                   className="font-medium leading-4 text-base bg-clip-text text-transparent"
@@ -134,6 +135,7 @@ export default function WelcomeScreen({
         <div className="absolute left-[21px] bottom-[20px] w-[560px] h-[56px]">
           <InputField onSend={onSendMessage} className="w-full h-full" />
         </div>
+
       </div>
     </div>
   );
