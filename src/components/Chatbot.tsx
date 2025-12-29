@@ -26,10 +26,23 @@ export default function Chatbot({
   onNewChat
 }: ChatbotProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
 
   // Auto-scroll to bottom when messages change or loading state changes
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    // Use scrollTop instead of scrollIntoView to prevent parent window scrolling
+    if (messagesContainerRef.current && messagesEndRef.current) {
+      const container = messagesContainerRef.current;
+      const scrollHeight = container.scrollHeight;
+      const clientHeight = container.clientHeight;
+      
+      // Only scroll if we're near the bottom (within 100px)
+      const isNearBottom = scrollHeight - container.scrollTop - clientHeight < 100;
+      
+      if (isNearBottom) {
+        container.scrollTop = scrollHeight;
+      }
+    }
   }, [initialMessages, isLoading]);
 
   const handleSendMessage = (content: string) => {
@@ -76,7 +89,11 @@ export default function Chatbot({
         </div>
 
         {/* Messages Area - Scrollable */}
-        <div className="absolute left-0 top-[64px] bottom-[80px] w-[601px] overflow-y-auto">
+        <div 
+          ref={messagesContainerRef}
+          className="absolute left-0 top-[64px] bottom-[80px] w-[601px] overflow-y-auto"
+          style={{ scrollBehavior: 'auto' }}
+        >
           <div className="flex flex-col gap-4 p-5">
             {initialMessages.map((message) => (
               <Messages
