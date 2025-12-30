@@ -9,6 +9,13 @@ export interface ChatRequest {
   message: string;
   pdf_url: string;
   user_id: string;
+  /**
+   * Compatibility fields for backends that expect alternate naming.
+   * (Some deployments use camelCase or "question" instead of "message".)
+   */
+  question?: string;
+  pdfUrl?: string;
+  userId?: string;
 }
 
 export interface ChatResponse {
@@ -37,8 +44,14 @@ export async function sendMessage(message: string): Promise<string> {
 
   const requestBody: ChatRequest = {
     message,
+    // Compatibility with backends that expect "question"
+    question: message,
     pdf_url: PDF_URL,
+    // Compatibility with backends that expect camelCase
+    pdfUrl: PDF_URL,
     user_id: userId,
+    // Compatibility with backends that expect camelCase
+    userId,
   };
 
   try {

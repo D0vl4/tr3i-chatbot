@@ -1,6 +1,5 @@
-import React from 'react';
-import { History, ExternalLink, Sparkles, Plus } from 'lucide-react';
-import InputField from './InputField';
+import { History, ExternalLink, Sparkles, Plus } from "lucide-react";
+import InputField from "./InputField";
 
 interface WelcomeScreenProps {
   onSendMessage: (message: string) => void;
@@ -9,18 +8,18 @@ interface WelcomeScreenProps {
   onNewChat?: () => void;
 }
 
-export default function WelcomeScreen({ 
-  onSendMessage, 
+export default function WelcomeScreen({
+  onSendMessage,
   onQuickQuestionClick,
   onMenuClick,
-  onNewChat
+  onNewChat,
 }: WelcomeScreenProps) {
   const quickQuestions = [
-    'Give me a quick summary of all the main points from this course',
-    'What is the Tutoring outside activity in more terms',
-    'What is the biggest problem in the Tutoring Space',
-    "I don't understand these courses",
-    'Help me write better essays with more understanding and punctuality',
+    "What is Ableton Live and what makes it different from other DAWs?",
+    "What is the difference between Session View and Arrangement View?",
+    "What are the requirements for the 30-second challenge project?",
+    "How do I get started with creating my first loop-based sequence?",
+    "What should I consider when making creative decisions in music production?",
   ];
 
   return (
@@ -31,7 +30,7 @@ export default function WelcomeScreen({
         <div className="absolute left-0 top-0 w-[601px] bg-white h-[64px] z-[1]">
           <div className="flex gap-4 items-center px-5 py-4 w-full">
             {/* History Icon */}
-            <button 
+            <button
               onClick={onMenuClick}
               title="Conversation History"
               className="p-1 rounded hover:bg-gray-100 transition-colors"
@@ -45,7 +44,7 @@ export default function WelcomeScreen({
             </h1>
 
             {/* New Chat Button */}
-            <button 
+            <button
               onClick={onNewChat}
               title="New Chat"
               className="absolute left-[427px] flex items-center gap-2 px-3 py-2 rounded-lg bg-[#2668c5] hover:bg-[#1d5299] transition-colors text-white text-sm font-medium"
@@ -84,7 +83,10 @@ export default function WelcomeScreen({
                   How can I assist you?
                 </p>
                 <p className="leading-6 relative text-base w-full">
-                  This AI tutor is here to help you understand lessons better, explain difficult concepts, guide you through the course, and support you during quizzes—without giving you the answers. It's designed to keep you learning, confident, and on track.
+                  This AI tutor is here to help you understand lessons better,
+                  explain difficult concepts, guide you through the course, and
+                  support you during quizzes—without giving you the answers.
+                  It's designed to keep you learning, confident, and on track.
                 </p>
               </div>
 
@@ -102,32 +104,35 @@ export default function WelcomeScreen({
                 </div>
               </div>
             </div>
+          </div>
 
+          {/* Quick Questions Section */}
+          <div className="flex flex-col gap-[20px] items-center relative w-full">
             {/* Quick Questions Heading */}
             <p className="font-medium leading-4 relative text-2xl text-black text-center w-full">
               Quick Questions:
             </p>
-          </div>
 
-          {/* Quick Questions Chips */}
-          <div className="content-start flex flex-wrap gap-3 h-[204px] items-start pb-2 pt-1 px-5 relative w-full">
-            {quickQuestions.map((question, index) => (
-              <button
-                key={index}
-                onClick={() => onQuickQuestionClick(question)}
-                className="bg-[rgba(38,104,197,0.05)] border border-[rgba(38,104,197,0.1)] flex gap-2 h-[30px] items-center px-3 py-0 relative rounded-lg hover:bg-[rgba(38,104,197,0.1)] transition-colors"
-              >
-                <p
-                  className="font-medium leading-4 text-base bg-clip-text text-transparent"
-                  style={{
-                    backgroundImage:
-                      'linear-gradient(220deg, rgb(254, 220, 42) 0%, rgb(221, 87, 137) 48.124%, rgb(122, 44, 158) 93.593%)',
-                  }}
+            {/* Quick Questions Chips */}
+            <div className="content-start flex flex-wrap gap-3 h-[204px] items-start pb-2 pt-1 px-5 relative w-full">
+              {quickQuestions.map((question, index) => (
+                <button
+                  key={index}
+                  onClick={() => onQuickQuestionClick(question)}
+                  className="bg-[rgba(38,104,197,0.05)] border border-[rgba(38,104,197,0.1)] flex gap-2 items-center px-4 py-2.5 relative rounded-lg hover:bg-[rgba(38,104,197,0.1)] transition-colors text-left w-[561px]"
                 >
-                  {question}
-                </p>
-              </button>
-            ))}
+                  <p
+                    className="font-medium leading-4 text-sm bg-clip-text text-transparent text-left"
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(220deg, rgb(254, 220, 42) 0%, rgb(221, 87, 137) 48.124%, rgb(122, 44, 158) 93.593%)",
+                    }}
+                  >
+                    {question}
+                  </p>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -135,7 +140,6 @@ export default function WelcomeScreen({
         <div className="absolute left-[21px] bottom-[20px] w-[560px] h-[56px]">
           <InputField onSend={onSendMessage} className="w-full h-full" />
         </div>
-
       </div>
     </div>
   );
