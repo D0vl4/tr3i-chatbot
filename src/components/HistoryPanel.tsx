@@ -1,4 +1,4 @@
-import { X, MessageSquare, Trash2, Plus } from 'lucide-react';
+import { X, MessageSquare, Trash2, Plus, Eraser } from 'lucide-react';
 
 export interface Conversation {
   id: string;
@@ -18,6 +18,7 @@ interface HistoryPanelProps {
   onSelectConversation: (conversation: Conversation) => void;
   onDeleteConversation: (id: string) => void;
   onNewChat: () => void;
+  onClearHistory?: () => void;
   currentConversationId?: string;
 }
 
@@ -27,6 +28,7 @@ export default function HistoryPanel({
   onSelectConversation,
   onDeleteConversation,
   onNewChat,
+  onClearHistory,
   currentConversationId,
 }: HistoryPanelProps) {
   return (
@@ -46,21 +48,34 @@ export default function HistoryPanel({
             </button>
 
             {/* Title */}
-            <div className="flex-1 flex gap-2 items-center pl-1">
-              <h1 className="flex-1 font-medium leading-8 text-[#243143] text-2xl truncate">
-                Chat History
-              </h1>
-            </div>
+            <h1 className="font-medium leading-8 text-[#243143] text-2xl truncate">
+              Chat History
+            </h1>
+
+            {/* Clear History Button */}
+            {onClearHistory && conversations.length > 0 && (
+              <button 
+                onClick={onClearHistory}
+                title="Clear All History"
+                className="absolute left-[280px] flex items-center gap-2 px-3 py-2 rounded-lg bg-red-500 hover:bg-red-600 transition-colors text-white text-sm font-medium"
+              >
+                <Eraser className="w-4 h-4" />
+                Clear History
+              </button>
+            )}
 
             {/* New Chat Button */}
             <button 
               onClick={onNewChat}
               title="New Chat"
-              className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[#2668c5] hover:bg-[#1d5299] transition-colors text-white text-sm font-medium"
+              className="absolute left-[427px] flex items-center gap-2 px-3 py-2 rounded-lg bg-[#2668c5] hover:bg-[#1d5299] transition-colors text-white text-sm font-medium"
             >
               <Plus className="w-4 h-4" />
               New Chat
             </button>
+
+            {/* Empty space on the right */}
+            <div className="flex-1"></div>
           </div>
           {/* Divider */}
           <div className="bg-[rgba(38,104,197,0.1)] h-px w-full" />

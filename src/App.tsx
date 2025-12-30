@@ -178,6 +178,15 @@ function App() {
     }
   };
 
+  const handleClearHistory = () => {
+    if (window.confirm('Are you sure you want to delete all conversation history? This cannot be undone.')) {
+      setConversations([]);
+      saveConversations([]);
+      setMessages([]);
+      setCurrentConversationId(null);
+    }
+  };
+
   return (
     <div className="w-full h-screen overflow-hidden flex items-center justify-center bg-gray-100">
       {currentScreen === 'welcome' && (
@@ -209,6 +218,7 @@ function App() {
             onSelectConversation={handleSelectConversation}
             onDeleteConversation={handleDeleteConversation}
             onNewChat={handleNewChat}
+            onClearHistory={handleClearHistory}
             currentConversationId={currentConversationId || undefined}
           />
         </div>
