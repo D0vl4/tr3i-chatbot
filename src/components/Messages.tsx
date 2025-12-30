@@ -1,3 +1,4 @@
+import { useState, useRef, useEffect } from "react";
 import { Copy, RotateCw, ThumbsDown, ThumbsUp, Volume2 } from "lucide-react";
 
 interface MessagesProps {
@@ -27,6 +28,8 @@ export default function Messages({
   className = "",
 }: MessagesProps) {
   const isUser = sender === "user";
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const speechSynthesisRef = useRef<SpeechSynthesisUtterance | null>(null);
 
   const handleCopy = async () => {
     try {
@@ -35,6 +38,100 @@ export default function Messages({
       console.error('Failed to copy text:', err);
     }
   };
+
+  const handleReadAloud = () => {
+    // Stop any ongoing speech
+    if (isSpeaking && speechSynthesisRef.current) {
+      window.speechSynthesis.cancel();
+      setIsSpeaking(false);
+      return;
+    }
+
+    // Check if browser supports speech synthesis
+    if (!('speechSynthesis' in window)) {
+      alert('Your browser does not support text-to-speech.');
+      return;
+    }
+
+    // Get available voices and select a female voice
+    const voices = window.speechSynthesis.getVoices();
+    
+    // Try to find a female voice (common names vary by OS/browser)
+    // macOS: Samantha, Karen, Victoria, etc.
+    // Windows: Zira, etc.
+    // Chrome/Linux: various female voices
+    let selectedVoice = voices.find(voice => 
+      voice.name.toLowerCase().includes('samantha') ||
+      voice.name.toLowerCase().includes('karen') ||
+      voice.name.toLowerCase().includes('victoria') ||
+      voice.name.toLowerCase().includes('zira') ||
+      voice.name.toLowerCase().includes('female') ||
+      (voice.name.toLowerCase().includes('samantha') && voice.lang.startsWith('en'))
+    );
+
+    // If no specific female voice found, try to find any English female voice
+    if (!selectedVoice) {
+      selectedVoice = voices.find(voice => 
+        voice.lang.startsWith('en') && 
+        (voice.name.toLowerCase().includes('female') || 
+         !voice.name.toLowerCase().includes('male') ||
+         voice.name.toLowerCase().includes('woman'))
+      );
+    }
+
+    // Fallback to first English voice if still not found
+    if (!selectedVoice) {
+      selectedVoice = voices.find(voice => voice.lang.startsWith('en')) || voices[0];
+    }
+
+    // Create speech utterance
+    const utterance = new SpeechSynthesisUtterance(content);
+    utterance.rate = 1.0;
+    utterance.pitch = 1.0;
+    utterance.volume = 1.0;
+    
+    // Set the voice if we found one
+    if (selectedVoice) {
+      utterance.voice = selectedVoice;
+    }
+
+    utterance.onstart = () => {
+      setIsSpeaking(true);
+    };
+
+    utterance.onend = () => {
+      setIsSpeaking(false);
+      speechSynthesisRef.current = null;
+    };
+
+    utterance.onerror = () => {
+      setIsSpeaking(false);
+      speechSynthesisRef.current = null;
+    };
+
+    speechSynthesisRef.current = utterance;
+    window.speechSynthesis.speak(utterance);
+  };
+
+  // Load voices when component mounts (voices may not be available immediately)
+  useEffect(() => {
+    // Some browsers need voices to be loaded
+    const loadVoices = () => {
+      window.speechSynthesis.getVoices();
+    };
+    
+    loadVoices();
+    if (window.speechSynthesis.onvoiceschanged !== undefined) {
+      window.speechSynthesis.onvoiceschanged = loadVoices;
+    }
+
+    // Cleanup on unmount
+    return () => {
+      if (speechSynthesisRef.current) {
+        window.speechSynthesis.cancel();
+      }
+    };
+  }, []);
 
   return (
     <div
@@ -97,10 +194,15 @@ export default function Messages({
             <ThumbsUp className="w-4 h-4 text-[#243143]" />
           </button>
           <button 
-            title="Read aloud"
-            className="flex items-center justify-center p-2 rounded hover:bg-gray-100 transition-colors"
+            onClick={handleReadAloud}
+            title={isSpeaking ? "Stop reading" : "Read aloud"}
+            className={`flex items-center justify-center p-2 rounded transition-colors ${
+              isSpeaking 
+                ? 'bg-blue-100 hover:bg-blue-200' 
+                : 'hover:bg-gray-100'
+            }`}
           >
-            <Volume2 className="w-4 h-4 text-[#243143]" />
+            <Volume2 className={`w-4 h-4 ${isSpeaking ? 'text-[#2668c5]' : 'text-[#243143]'}`} />
           </button>
         </div>
       )}
