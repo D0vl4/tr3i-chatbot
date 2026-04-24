@@ -1,5 +1,6 @@
-import { History, ExternalLink, Sparkles, Plus } from "lucide-react";
+import { History, ExternalLink, Plus } from "lucide-react";
 import InputField from "./InputField";
+import a1Logo from "../A1_red_logo.png";
 
 interface WelcomeScreenProps {
   onSendMessage: (message: string) => void;
@@ -15,11 +16,11 @@ export default function WelcomeScreen({
   onNewChat,
 }: WelcomeScreenProps) {
   const quickQuestions = [
-    "What is Ableton Live and what makes it different from other DAWs?",
-    "What is the difference between Session View and Arrangement View?",
-    "What are the requirements for the 30-second challenge project?",
-    "How do I get started with creating my first loop-based sequence?",
-    "What should I consider when making creative decisions in music production?",
+    "What is Kolb's cycle?",
+    "What is the onion principle?",
+    "Give me an example of active learning.",
+    "How can I apply these concepts in practice?",
+    "What are the main advantages of this approach?",
   ];
 
   return (
@@ -35,7 +36,7 @@ export default function WelcomeScreen({
               title="Conversation History"
               className="p-1 rounded hover:bg-gray-100 transition-colors"
             >
-              <History className="w-6 h-6 text-[#2668c5]" />
+              <History className="w-6 h-6 text-[#E60000]" />
             </button>
 
             {/* Title */}
@@ -47,7 +48,7 @@ export default function WelcomeScreen({
             <button
               onClick={onNewChat}
               title="New Chat"
-              className="absolute left-[427px] flex items-center gap-2 px-3 py-2 rounded-lg bg-[#2668c5] hover:bg-[#1d5299] transition-colors text-white text-sm font-medium"
+              className="absolute left-[427px] flex items-center gap-2 px-3 py-2 rounded-lg bg-[#E60000] hover:bg-[#B80000] transition-colors text-white text-sm font-medium"
             >
               <Plus className="w-4 h-4" />
               New Chat
@@ -57,7 +58,7 @@ export default function WelcomeScreen({
             <div className="flex-1"></div>
           </div>
           {/* Divider */}
-          <div className="bg-[rgba(38,104,197,0.1)] h-px w-full" />
+          <div className="bg-[rgba(230,0,0,0.1)] h-px w-full" />
         </div>
 
         {/* Main Content */}
@@ -68,9 +69,13 @@ export default function WelcomeScreen({
               {/* Icon */}
               <div className="flex items-center justify-center pb-4 pt-0 px-0 relative">
                 <div className="relative w-[114px] h-[114px] flex items-center justify-center">
-                  <div className="w-[114px] h-[114px] flex items-center justify-center rounded-full bg-gradient-to-br from-[#2668c5] to-[#7a2c9e]">
-                    <Sparkles className="w-16 h-16 text-white" />
-                  </div>
+                  <img
+                    src={a1Logo}
+                    alt=""
+                    width={114}
+                    height={114}
+                    className="w-[114px] h-[114px] object-contain"
+                  />
                 </div>
               </div>
 
@@ -95,10 +100,10 @@ export default function WelcomeScreen({
                 <div className="flex flex-col gap-2 items-center relative w-full">
                   <button className="flex items-center px-0 py-1 relative">
                     <div className="flex items-center gap-2">
-                      <p className="font-semibold leading-6 text-[#2668c5] text-sm">
+                      <p className="font-semibold leading-6 text-[#E60000] text-sm">
                         AI policy
                       </p>
-                      <ExternalLink className="w-4 h-4 text-[#2668c5]" />
+                      <ExternalLink className="w-4 h-4 text-[#E60000]" />
                     </div>
                   </button>
                 </div>
@@ -119,13 +124,13 @@ export default function WelcomeScreen({
                 <button
                   key={index}
                   onClick={() => onQuickQuestionClick(question)}
-                  className="bg-[rgba(38,104,197,0.05)] border border-[rgba(38,104,197,0.1)] flex gap-2 items-center px-4 py-2.5 relative rounded-lg hover:bg-[rgba(38,104,197,0.1)] transition-colors text-left w-[561px]"
+                  className="bg-[rgba(230,0,0,0.05)] border border-[rgba(230,0,0,0.1)] flex gap-2 items-center px-4 py-2.5 relative rounded-lg hover:bg-[rgba(230,0,0,0.1)] transition-colors text-left w-[561px]"
                 >
                   <p
                     className="font-medium leading-4 text-sm bg-clip-text text-transparent text-left"
                     style={{
                       backgroundImage:
-                        "linear-gradient(220deg, rgb(254, 220, 42) 0%, rgb(221, 87, 137) 48.124%, rgb(122, 44, 158) 93.593%)",
+                        "linear-gradient(220deg, #000000 0%, #E60000 100%)",
                     }}
                   >
                     {question}

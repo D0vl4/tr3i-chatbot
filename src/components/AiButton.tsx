@@ -19,7 +19,7 @@ export default function AiButton({
   return (
     <button
       onClick={onClick}
-      className={`bg-[#07284b] flex gap-[13px] items-center px-5 py-[10px] relative rounded-lg shadow-[0px_4px_4px_0px_rgba(0,0,0,0.15)] hover:opacity-90 transition-opacity ${className}`}
+      className={`bg-[#E60000] flex gap-[13px] items-center px-5 py-[10px] relative rounded-lg shadow-[0px_4px_4px_0px_rgba(0,0,0,0.15)] hover:opacity-90 transition-opacity ${className}`}
     >
       <div className="relative w-7 h-7 flex items-center justify-center">
         <ChatBubbleIcon className="w-7 h-7" />

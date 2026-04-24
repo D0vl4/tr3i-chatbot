@@ -106,8 +106,16 @@ function App() {
     setIsLoading(true);
 
     try {
+      // Build history from existing messages
+      const history = messages
+        .filter(m => m.content && !m.content.startsWith('Sorry, I encountered an error:'))
+        .map(m => ({
+          role: m.sender === 'user' ? 'user' as const : 'assistant' as const,
+          content: m.content
+        }));
+
       // Call the API
-      const aiResponse = await sendMessage(content);
+      const aiResponse = await sendMessage(content, history);
       
       // Add AI response
       const aiMessage: Message = {

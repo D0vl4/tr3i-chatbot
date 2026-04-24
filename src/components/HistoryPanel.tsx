@@ -44,7 +44,7 @@ export default function HistoryPanel({
               title="Close History"
               className="p-1 rounded hover:bg-gray-100 transition-colors"
             >
-              <X className="w-6 h-6 text-[#2668c5]" />
+              <X className="w-6 h-6 text-[#E60000]" />
             </button>
 
             {/* Title */}
@@ -68,7 +68,7 @@ export default function HistoryPanel({
             <button 
               onClick={onNewChat}
               title="New Chat"
-              className="absolute left-[427px] flex items-center gap-2 px-3 py-2 rounded-lg bg-[#2668c5] hover:bg-[#1d5299] transition-colors text-white text-sm font-medium"
+              className="absolute left-[427px] flex items-center gap-2 px-3 py-2 rounded-lg bg-[#E60000] hover:bg-[#B80000] transition-colors text-white text-sm font-medium"
             >
               <Plus className="w-4 h-4" />
               New Chat
@@ -78,7 +78,7 @@ export default function HistoryPanel({
             <div className="flex-1"></div>
           </div>
           {/* Divider */}
-          <div className="bg-[rgba(38,104,197,0.1)] h-px w-full" />
+          <div className="bg-[rgba(230,0,0,0.1)] h-px w-full" />
         </div>
 
         {/* Conversation List */}
@@ -90,7 +90,7 @@ export default function HistoryPanel({
               <p className="text-sm text-center mt-2 text-gray-400">Start chatting to see your history here</p>
               <button 
                 onClick={onNewChat}
-                className="mt-6 flex items-center gap-2 px-4 py-2 rounded-lg bg-[#2668c5] hover:bg-[#1d5299] transition-colors text-white text-sm font-medium"
+                className="mt-6 flex items-center gap-2 px-4 py-2 rounded-lg bg-[#E60000] hover:bg-[#B80000] transition-colors text-white text-sm font-medium"
               >
                 <Plus className="w-4 h-4" />
                 Start New Chat
@@ -103,14 +103,14 @@ export default function HistoryPanel({
                   key={conversation.id}
                   className={`group flex items-center gap-4 px-4 py-4 mb-2 cursor-pointer rounded-lg border transition-all ${
                     currentConversationId === conversation.id 
-                      ? 'bg-blue-50 border-[#2668c5]' 
+                      ? 'bg-red-50 border-[#E60000]' 
                       : 'bg-white border-gray-100 hover:border-gray-200 hover:shadow-sm'
                   }`}
                   onClick={() => onSelectConversation(conversation)}
                 >
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${
                     currentConversationId === conversation.id 
-                      ? 'bg-[#2668c5]' 
+                      ? 'bg-[#E60000]' 
                       : 'bg-gray-100'
                   }`}>
                     <MessageSquare className={`w-5 h-5 ${

@@ -1,57 +1,32 @@
 // Chat Service - API integration for AI chatbot
 
-const API_URL = "https://zrinja-lms.hf.space/chat";
-const PDF_URL =
-  "https://lms-chat-docs.s3.us-east-1.amazonaws.com/AbletonDocumentation.pdf";
+const API_URL = "https://bnvbuhyxugu5tw56ox4ehtsi5u0yldef.lambda-url.us-east-1.on.aws/";
 
 // Types
+export interface ChatHistoryItem {
+  role: "user" | "assistant";
+  content: string;
+}
+
 export interface ChatRequest {
-  message: string;
-  pdf_url: string;
-  user_id: string;
-  /**
-   * Compatibility fields for backends that expect alternate naming.
-   * (Some deployments use camelCase or "question" instead of "message".)
-   */
-  question?: string;
-  pdfUrl?: string;
-  userId?: string;
+  question: string;
+  history?: ChatHistoryItem[];
 }
 
 export interface ChatResponse {
-  response?: string;
-  answer?: string;
-  message?: string;
-  error?: string;
-}
-
-// Generate or retrieve a unique user ID for this session
-function getUserId(): string {
-  const storageKey = "chatbot_user_id";
-  let userId = localStorage.getItem(storageKey);
-
-  if (!userId) {
-    userId = `user_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
-    localStorage.setItem(storageKey, userId);
-  }
-
-  return userId;
+  answer: string;
+  usage?: {
+    prompt_tokens: number;
+    cached_tokens: number;
+    completion_tokens: number;
+  };
 }
 
 // Send a message to the chatbot API
-export async function sendMessage(message: string): Promise<string> {
-  const userId = getUserId();
-
+export async function sendMessage(question: string, history: ChatHistoryItem[] = []): Promise<string> {
   const requestBody: ChatRequest = {
-    message,
-    // Compatibility with backends that expect "question"
-    question: message,
-    pdf_url: PDF_URL,
-    // Compatibility with backends that expect camelCase
-    pdfUrl: PDF_URL,
-    user_id: userId,
-    // Compatibility with backends that expect camelCase
-    userId,
+    question,
+    history,
   };
 
   try {
@@ -64,19 +39,16 @@ export async function sendMessage(message: string): Promise<string> {
     });
 
     if (!response.ok) {
-      throw new Error(`API error: ${response.status} ${response.statusText}`);
+      throw new Error(`API error: ${response.status} ${await response.text()}`);
     }
 
     const data: ChatResponse = await response.json();
 
-    // Handle different possible response formats from the API
-    const aiResponse = data.response || data.answer || data.message;
-
-    if (!aiResponse) {
+    if (!data.answer) {
       throw new Error("No response received from AI");
     }
 
-    return aiResponse;
+    return data.answer;
   } catch (error) {
     if (error instanceof Error) {
       throw new Error(`Failed to get AI response: ${error.message}`);

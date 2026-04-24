@@ -13,9 +13,9 @@ interface MessagesProps {
 function TypingIndicator() {
   return (
     <div className="flex gap-1 items-center py-2">
-      <span className="w-2 h-2 bg-[#2668c5] rounded-full animate-bounce [animation-delay:-0.3s]"></span>
-      <span className="w-2 h-2 bg-[#2668c5] rounded-full animate-bounce [animation-delay:-0.15s]"></span>
-      <span className="w-2 h-2 bg-[#2668c5] rounded-full animate-bounce"></span>
+      <span className="w-2 h-2 bg-[#E60000] rounded-full animate-bounce [animation-delay:-0.3s]"></span>
+      <span className="w-2 h-2 bg-[#E60000] rounded-full animate-bounce [animation-delay:-0.15s]"></span>
+      <span className="w-2 h-2 bg-[#E60000] rounded-full animate-bounce"></span>
     </div>
   );
 }
@@ -148,8 +148,8 @@ export default function Messages({
       <div
         className={`${
           isUser
-            ? "bg-[#e8f5e9] border-[#c8e6c9]"
-            : "bg-[#f1f5ff] border-[rgba(38,104,197,0.1)]"
+            ? "bg-[#fff0f0] border-[#ffcccc]"
+            : "bg-[#fff5f5] border-[rgba(230,0,0,0.1)]"
         } border border-solid flex flex-col gap-2 p-4 relative rounded ${isUser ? 'max-w-[85%]' : 'w-full'}`}
       >
         {isLoading ? (
@@ -198,11 +198,11 @@ export default function Messages({
             title={isSpeaking ? "Stop reading" : "Read aloud"}
             className={`flex items-center justify-center p-2 rounded transition-colors ${
               isSpeaking 
-                ? 'bg-blue-100 hover:bg-blue-200' 
+                ? 'bg-red-100 hover:bg-red-200' 
                 : 'hover:bg-gray-100'
             }`}
           >
-            <Volume2 className={`w-4 h-4 ${isSpeaking ? 'text-[#2668c5]' : 'text-[#243143]'}`} />
+            <Volume2 className={`w-4 h-4 ${isSpeaking ? 'text-[#E60000]' : 'text-[#243143]'}`} />
           </button>
         </div>
       )}

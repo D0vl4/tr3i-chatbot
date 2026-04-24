@@ -33,7 +33,7 @@ export default function InputField({
   const textColor = isDark
     ? 'text-[rgba(255,255,255,0.9)]'
     : 'text-[rgba(0,0,0,0.9)]';
-  const buttonBg = 'bg-[#2668c5] border-[#2668c5]';
+  const buttonBg = 'bg-[#E60000] border-[#E60000]';
 
   return (
     <div className={`relative ${className}`}>
@@ -66,7 +66,7 @@ export default function InputField({
       <div className="absolute flex inset-[98.21%_41.31%_1.79%_15.02%] items-center justify-center pointer-events-none">
         <div className="flex-none h-px rotate-180 w-[244.562px]">
           <div className="relative w-full h-full">
-            <div className="w-full h-full bg-gradient-to-r from-transparent via-[#2668c5] to-transparent opacity-30" />
+            <div className="w-full h-full bg-gradient-to-r from-transparent via-[#E60000] to-transparent opacity-30" />
           </div>
         </div>
       </div>

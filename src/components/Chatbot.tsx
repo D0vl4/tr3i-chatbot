@@ -65,7 +65,7 @@ export default function Chatbot({
               title="Conversation History"
               className="p-1 rounded hover:bg-gray-100 transition-colors"
             >
-              <History className="w-6 h-6 text-[#2668c5]" />
+              <History className="w-6 h-6 text-[#E60000]" />
             </button>
 
             {/* Title */}
@@ -77,7 +77,7 @@ export default function Chatbot({
             <button
               onClick={onNewChat}
               title="New Chat"
-              className="absolute left-[427px] flex items-center gap-2 px-3 py-2 rounded-lg bg-[#2668c5] hover:bg-[#1d5299] transition-colors text-white text-sm font-medium"
+              className="absolute left-[427px] flex items-center gap-2 px-3 py-2 rounded-lg bg-[#E60000] hover:bg-[#B80000] transition-colors text-white text-sm font-medium"
             >
               <Plus className="w-4 h-4" />
               New Chat
@@ -87,7 +87,7 @@ export default function Chatbot({
             <div className="flex-1"></div>
           </div>
           {/* Divider */}
-          <div className="bg-[rgba(38,104,197,0.1)] h-px w-full" />
+          <div className="bg-[rgba(230,0,0,0.1)] h-px w-full" />
         </div>
 
         {/* Messages Area - Scrollable */}
