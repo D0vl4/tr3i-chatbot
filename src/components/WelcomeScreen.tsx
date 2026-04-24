@@ -15,13 +15,7 @@ export default function WelcomeScreen({
   onMenuClick,
   onNewChat,
 }: WelcomeScreenProps) {
-  const quickQuestions = [
-    "What is Kolb's cycle?",
-    "What is the onion principle?",
-    "Give me an example of active learning.",
-    "How can I apply these concepts in practice?",
-    "What are the main advantages of this approach?",
-  ];
+  const quickQuestions: string[] = [];
 
   return (
     <div className="relative w-[601px] h-[1080px] bg-white overflow-hidden">
@@ -111,34 +105,36 @@ export default function WelcomeScreen({
             </div>
           </div>
 
-          {/* Quick Questions Section */}
-          <div className="flex flex-col gap-[20px] items-center relative w-full">
-            {/* Quick Questions Heading */}
-            <p className="font-medium leading-4 relative text-2xl text-black text-center w-full">
-              Quick Questions:
-            </p>
+          {/* Quick Questions Section - Empty */}
+          {quickQuestions.length > 0 && (
+            <div className="flex flex-col gap-[20px] items-center relative w-full">
+              {/* Quick Questions Heading */}
+              <p className="font-medium leading-4 relative text-2xl text-black text-center w-full">
+                Quick Questions:
+              </p>
 
-            {/* Quick Questions Chips */}
-            <div className="content-start flex flex-wrap gap-3 h-[204px] items-start pb-2 pt-1 px-5 relative w-full">
-              {quickQuestions.map((question, index) => (
-                <button
-                  key={index}
-                  onClick={() => onQuickQuestionClick(question)}
-                  className="bg-[rgba(230,0,0,0.05)] border border-[rgba(230,0,0,0.1)] flex gap-2 items-center px-4 py-2.5 relative rounded-lg hover:bg-[rgba(230,0,0,0.1)] transition-colors text-left w-[561px]"
-                >
-                  <p
-                    className="font-medium leading-4 text-sm bg-clip-text text-transparent text-left"
-                    style={{
-                      backgroundImage:
-                        "linear-gradient(220deg, #000000 0%, #E60000 100%)",
-                    }}
+              {/* Quick Questions Chips */}
+              <div className="content-start flex flex-wrap gap-3 h-[204px] items-start pb-2 pt-1 px-5 relative w-full">
+                {quickQuestions.map((question, index) => (
+                  <button
+                    key={index}
+                    onClick={() => onQuickQuestionClick(question)}
+                    className="bg-[rgba(230,0,0,0.05)] border border-[rgba(230,0,0,0.1)] flex gap-2 items-center px-4 py-2.5 relative rounded-lg hover:bg-[rgba(230,0,0,0.1)] transition-colors text-left w-[561px]"
                   >
-                    {question}
-                  </p>
-                </button>
-              ))}
+                    <p
+                      className="font-medium leading-4 text-sm bg-clip-text text-transparent text-left"
+                      style={{
+                        backgroundImage:
+                          "linear-gradient(220deg, #000000 0%, #E60000 100%)",
+                      }}
+                    >
+                      {question}
+                    </p>
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
         {/* Input Field */}
